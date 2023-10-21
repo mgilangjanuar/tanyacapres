@@ -1,0 +1,17 @@
+{
+  "name": "tanyacapres",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:mgilangjanuar/tanya-capres.git",
+  "author": "M Gilang Januar <mgilangjanuar@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev:api:build": "cd api && yarn install && yarn build -w",
+    "dev:api:start": "sleep 2 && while [ ! -f api/dist/index.js ]; do sleep 2; done && cd api && yarn dev",
+    "dev:web:start": "cd web && yarn dev",
+    "dev": "npm-run-all -l --parallel dev:api:build dev:api:start dev:web:start"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
