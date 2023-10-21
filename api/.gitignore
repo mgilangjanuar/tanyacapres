@@ -1,0 +1,8 @@
+node_modules/
+.env
+dist/
+.DS_Store
+
+docs/splitted/**/*
+docs/vectors/**/*
+!docs/*.pdf
