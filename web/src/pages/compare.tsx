@@ -37,7 +37,7 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100vh-300px)] h-[calc(100vh-260px)] my-2">
+            <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
               <div className="card-body">
                 {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -91,7 +91,7 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100vh-300px)] h-[calc(100vh-260px)] my-2">
+            <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
               <div className="card-body">
                 {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
