@@ -136,7 +136,7 @@ export default function Home() {
               setLoading(true)
               const data = Object.fromEntries(new FormData(e.target as HTMLFormElement))
               const msgs: { role: string, content: string }[] = [...messages, { role: 'user', content: data.content as string }]
-              const resp = await fetch(`https://tanyacapres-api.appledore.dev/prompt/${candidate}`, {
+              const resp = await fetch(`${import.meta.env.VITE_API_URL}/prompt/${candidate}`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'

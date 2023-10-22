@@ -32,16 +32,18 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   }))
   records.sort((a, b) => (b as any & { similarity: number }).similarity - (a as any & { similarity: number }).similarity)
 
-  const top3 = records.slice(0, 3)
+  const topResults = records.slice(0, 7)
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. Only can answer the question based on the documents and ignore all the question if there is no information from the PDFs.
 
-${top3.map((record, i) => `---
-${i + 1}. Page ${record.page}
+Here are the relevant results:
 
-${record.text}
+${topResults.map((record, i) => `---
+${i + 1}. Page ${record.page} (similarity: ${record.similarity.toFixed(2)}
+
+${record.text.trim()}
 ---`).join('\n\n')}`)
     },
     ...messages
@@ -77,16 +79,18 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   }))
   records.sort((a, b) => (b as any & { similarity: number }).similarity - (a as any & { similarity: number }).similarity)
 
-  const top3 = records.slice(0, 3)
+  const topResults = records.slice(0, 7)
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. Only can answer the question based on the documents and ignore all the question if there is no information from the PDFs.
 
-${top3.map((record, i) => `---
-${i + 1}. Page ${record.page}
+Here are the relevant results:
 
-${record.text}
+${topResults.map((record, i) => `---
+${i + 1}. Page ${record.page} (similarity: ${record.similarity.toFixed(2)}
+
+${record.text.trim()}
 ---`).join('\n\n')}`)
     },
     ...messages
