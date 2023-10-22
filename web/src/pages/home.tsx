@@ -61,7 +61,8 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-4 text-center flex gap-4 justify-center">
-            <div>
+            <div className="indicator">
+              <span className="indicator-item badge badge-secondary">new</span>
               <Link className="btn btn-primary btn-neutral" to="/compare">
                 Bandingkan Jawaban
               </Link>
@@ -99,7 +100,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
+        <div className="card overflow-y-auto lg:h-[calc(100vh-300px)] h-[calc(100vh-260px)] my-2">
           <div className="card-body">
             {messages.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
               <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -128,8 +129,8 @@ export default function Home() {
             </div>)}
           </div>
         </div>
-        <div className="card shadow-md lg:card-normal card-compact">
-          <div className="card-body">
+        <div className="mx-auto py-4 max-w-7xl">
+          <div>
             <form onSubmit={async e => {
               e.preventDefault()
               setLoading(true)
