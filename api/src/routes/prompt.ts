@@ -6,10 +6,7 @@ import { readFileSync } from 'fs'
 const crypt = new Cryptr(process.env.SECRET || '')
 
 const aniesPrompt = async (messages: { role: string, content: string }[]) => {
-  const query = messages
-    .filter(msg => msg.role === 'user' || msg.role === 'assistant')
-    .map(msg => `${msg.role === 'user' ? 'Q' : 'A'}: ${msg.content}`)
-    .join('\n\n')
+  const query = messages[messages.length - 1].content
   const emresp = await fetch('https://api.openai.com/v1/embeddings', {
     body: JSON.stringify({
       model: 'text-embedding-ada-002',
@@ -54,10 +51,7 @@ ${record.text}
 }
 
 const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
-  const query = messages
-    .filter(msg => msg.role === 'user' || msg.role === 'assistant')
-    .map(msg => `${msg.role === 'user' ? 'Q' : 'A'}: ${msg.content}`)
-    .join('\n\n')
+  const query = messages[messages.length - 1].content
   const emresp = await fetch('https://api.openai.com/v1/embeddings', {
     body: JSON.stringify({
       model: 'text-embedding-ada-002',

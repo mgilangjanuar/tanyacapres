@@ -124,7 +124,7 @@ export default function Compare() {
         </div>
       </div>
     </div>
-    <div className="mx-auto pb-4 pt-8 max-w-7xl">
+    <div className="mx-auto py-4 max-w-7xl">
       <div>
         <form onSubmit={async e => {
           e.preventDefault()
