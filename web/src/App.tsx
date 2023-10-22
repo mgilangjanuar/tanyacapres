@@ -1,11 +1,14 @@
-import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import Compare from './pages/compare'
 import Home from './pages/home'
+
+import './App.css'
 
 function App() {
   return <div className="min-h-screen" data-theme="light">
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">
+        <a className="btn btn-ghost normal-case text-xl" href="/">
           <img src="/icon.png" className="w-full max-w-[28px]" alt="" />
           TanyaCapres
         </a>
@@ -37,7 +40,10 @@ function App() {
         </ul>
       </div>
     </div>
-    <Home />
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path="/compare" element={<Compare />} />
+    </Routes>
   </div>
 }
 
