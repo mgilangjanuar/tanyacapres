@@ -52,7 +52,6 @@ export default async (req: Request) => {
     model: model,
     stream: true,
     temperature,
-    user: 'eyevisorbuz',
     messages: decryptedMessages,
   }
 

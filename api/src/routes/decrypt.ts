@@ -4,8 +4,8 @@ import { Request, Response } from 'express'
 const crypt = new Cryptr(process.env.SECRET || '')
 
 export default async function handler(req: Request, res: Response) {
-  const { key } = req.query
-  if (key !== process.env.DECRYPT_KEY) {
+  const { authorization } = req.headers
+  if (authorization !== process.env.DECRYPT_KEY) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 

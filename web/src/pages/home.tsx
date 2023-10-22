@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm'
 export default function Home() {
   const [showChat, setShowChat] = useState<boolean>(false)
   const [candidate, setCandidate] = useState<string>()
+  const [loading, setLoading] = useState<boolean>(false)
   const [messages, setMessages] = useState<{ role: string, content: string }[]>([])
 
   return <div className="container mx-auto py-6">
@@ -123,8 +124,9 @@ export default function Home() {
           <div className="card-body">
             <form onSubmit={async e => {
               e.preventDefault()
+              setLoading(true)
               const data = Object.fromEntries(new FormData(e.target as HTMLFormElement))
-              const msgs = [...messages, { role: 'user', content: data.content }]
+              const msgs: { role: string, content: string }[] = [...messages, { role: 'user', content: data.content as string }]
               const resp = await fetch(`https://tanyacapres-api.appledore.dev/prompt/${candidate}`, {
                 method: 'POST',
                 headers: {
@@ -134,21 +136,101 @@ export default function Home() {
                   messages: msgs
                 })
               })
-              console.log(resp)
+              if (!resp.ok) {
+                alert('Terjadi kesalahan, coba lagi nanti.')
+                setLoading(false)
+                return
+              }
+
+              setMessages(msgs)
+              const json = await resp.json()
+              fetch('https://tanyacapres.vercel.app/api/stream', {
+                method: 'POST',
+                body: JSON.stringify(json),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(async resp => {
+                const data = resp.body
+                if (!data) {
+                  return
+                }
+                const reader = data.getReader()
+                const decoder = new TextDecoder()
+                let done = false
+
+                // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+                let responseText: string = ''
+                let responses: string[] = []
+
+                while (!done) {
+                  const { value, done: doneReading } = await reader.read()
+                  done = doneReading
+                  const chunkValue = decoder.decode(value)
+                  if (!chunkValue) break
+
+                  responseText += chunkValue
+                  responses = responseText.split('\n\n')
+                  const message: { role: string, content: string } = { role: '', content: '' }
+
+                  for (const res of responses) {
+                    const process = (append = '') => {
+                      const c = JSON.parse(`${res}${append}`)
+                      if (c.error) {
+                        if (c.error === 'Unauthorized') {
+                          (window as any).openLogin.showModal()
+                        } else {
+                          alert(c.error)
+                        }
+                        setLoading(false)
+                        return null
+                      }
+
+                      message.role = c.choices[0].delta.role ?? message.role
+                      message.content += c.choices[0].delta.content || ''
+
+                      if (c.choices[0].finish_reason === 'stop') {
+                        setLoading(false)
+                      }
+                    }
+                    try {
+                      const c = process()
+                      if (c === null) break
+                    } catch (err) {
+                      try {
+                        const c = process('"}}]}')
+                        if (c === null) break
+                      } catch (error) {
+                        try {
+                          const c = process('}}]')
+                          if (c === null) break
+                        } catch (error) {
+                          console.log(res)
+                        }
+                      }
+                    }
+                  }
+
+                  if (message.content.trim()) {
+                    setMessages([...msgs, message])
+                  }
+                }
+              })
+
             }}>
               <div className="flex gap-2">
                 <div className="grow">
                   <div className="form-control">
-                    <input type="text" required name="content" className="input input-bordered" placeholder="Tanya apa saja..."  />
+                    <input type="text" required name="content" className="input input-bordered" placeholder="Tanyakan apa saja..." readOnly={loading} />
                   </div>
                 </div>
                 <div>
-                  <button type="submit" className="btn btn-ghost btn-outline border-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <button type="submit" className="btn btn-ghost btn-outline border-gray-300" disabled={loading}>
+                    {loading ? <span className="loading loading-spinner"></span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                       <path d="M10 14l11 -11" />
                       <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
-                    </svg>
+                    </svg>}
                   </button>
                 </div>
               </div>
