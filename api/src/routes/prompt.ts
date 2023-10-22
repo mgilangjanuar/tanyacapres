@@ -36,7 +36,7 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. Only can answer the question based on the documents and ignore all the question if there is no information from the PDFs.
+      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs and always use Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You only can answer the question based on the documents and ignore all the questions if there is no information from the PDFs.
 
 Here are the relevant results:
 
@@ -83,7 +83,7 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. Only can answer the question based on the documents and ignore all the question if there is no information from the PDFs.
+      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs and always use Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You only can answer the question based on the documents and ignore all the questions if there is no information from the PDFs.
 
 Here are the relevant results:
 
