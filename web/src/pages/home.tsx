@@ -205,7 +205,7 @@ export default function Home() {
                       }
 
                       if (c.choices[0].finish_reason === 'stop') {
-                        if (messages?.length > 1 && !localStorage.getItem('isDonated')) {
+                        if (messages?.length > 1 && !sessionStorage.getItem('isDonated')) {
                           (window as any).gotopricing.showModal()
                         }
                         setLoading(false)
@@ -266,7 +266,7 @@ export default function Home() {
           Bantu kami untuk terus mengembangkan aplikasi ini dengan berdonasi 🎁 🥳
         </p>
         <div className="modal-action">
-          <a href="https://www.nihbuatjajan.com/mgilangjanuar" target="_blank" className="btn btn-neutral" onClick={() => localStorage.setItem('isDonated', 'true')}>
+          <a href="https://www.nihbuatjajan.com/mgilangjanuar" target="_blank" className="btn btn-neutral" onClick={() => sessionStorage.setItem('isDonated', 'true')}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <path d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
