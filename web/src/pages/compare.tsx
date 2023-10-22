@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -6,6 +6,8 @@ import remarkGfm from 'remark-gfm'
 
 export default function Compare() {
   const [loading, setLoading] = useState<boolean>(false)
+  const refAmin = useRef<any>()
+  const refGama = useRef<any>()
   const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
 
@@ -31,19 +33,10 @@ export default function Compare() {
                   <h3 className="text-xl font-bold">AMIN</h3>
                   <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
                 </div>
-                <div>
-                  <button onClick={() => setMessagesAmin([])} className="btn btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-                      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-                    </svg>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-          <div className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
+          <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
             <div className="card-body">
               {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                 <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -94,19 +87,10 @@ export default function Compare() {
                   <h3 className="text-xl font-bold">GAMA</h3>
                   <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
                 </div>
-                <div>
-                  <button onClick={() => setMessagesGama([])} className="btn btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
-                      <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
-                    </svg>
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-          <div className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
+          <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
             <div className="card-body">
               {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                 <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -138,8 +122,8 @@ export default function Compare() {
         </div>
       </div>
     </div>
-    <div className="card shadow-md lg:card-normal card-compact max-w-3xl mx-auto">
-      <div className="card-body">
+    <div className="mx-auto pb-4 pt-8">
+      <div>
         <form onSubmit={async e => {
           e.preventDefault()
           setLoading(true)
@@ -208,6 +192,10 @@ export default function Compare() {
 
                     message.role = c.choices[0].delta.role ?? message.role
                     message.content += c.choices[0].delta.content || ''
+
+                    if (refAmin.current) {
+                      refAmin.current.scrollTop = refAmin.current?.scrollHeight
+                    }
 
                     if (c.choices[0].finish_reason === 'stop') {
                       setLoading(false)
@@ -303,6 +291,10 @@ export default function Compare() {
                     message.role = c.choices[0].delta.role ?? message.role
                     message.content += c.choices[0].delta.content || ''
 
+                    if (refGama.current) {
+                      refGama.current.scrollTop = refGama.current?.scrollHeight
+                    }
+
                     if (c.choices[0].finish_reason === 'stop') {
                       setLoading(false)
                     }
@@ -337,7 +329,7 @@ export default function Compare() {
           <div className="flex gap-2">
             <div className="grow">
               <div className="form-control">
-                <input type="text" required name="content" className="input input-bordered" placeholder="Tanyakan apa saja..." readOnly={loading} />
+                <input type="text" required name="content" className="input input-bordered" placeholder="Tanyakan pertanyaan untuk semua calon..." readOnly={loading} />
               </div>
             </div>
             <div>
@@ -347,6 +339,18 @@ export default function Compare() {
                   <path d="M10 14l11 -11" />
                   <path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" />
                 </svg>}
+              </button>
+            </div>
+            <div>
+              <button type="button" onClick={() => {
+                setMessagesAmin([])
+                setMessagesGama([])
+              }} className="btn btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                  <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                </svg>
               </button>
             </div>
           </div>

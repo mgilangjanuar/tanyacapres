@@ -39,7 +39,7 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no data from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
 
 ${top3.map((record, i) => `---
 ${i + 1}. Page ${record.page}
@@ -87,7 +87,7 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no data from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
 
 ${top3.map((record, i) => `---
 ${i + 1}. Page ${record.page}
@@ -109,7 +109,7 @@ export default async function handler(req: Request, res: Response) {
     return res.json({
       messages: await aniesPrompt(conv),
       model: 'gpt-3.5-turbo-16k',
-      temperature: 0.15
+      temperature: 0.05
     })
   }
 
@@ -117,7 +117,7 @@ export default async function handler(req: Request, res: Response) {
     return res.json({
       messages: await ganjarPrompt(conv),
       model: 'gpt-3.5-turbo-16k',
-      temperature: 0.15
+      temperature: 0.05
     })
   }
 
