@@ -10,9 +10,9 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
   const [messages, setMessages] = useState<{ role: string, content: string }[]>([])
 
-  return <div className="container mx-auto py-6">
+  return <div className="container mx-auto py-2">
     <div>
-      {!showChat || !candidate ? <div className="mx-auto max-w-2xl">
+      {!showChat || !candidate ? <div className="mx-auto max-w-2xl py-4">
         <div>
           <div>
             <img src="/logo.png" className="w-full max-w-[236px] mx-auto" alt="" />
@@ -91,10 +91,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="card overflow-y-auto lg:min-h-[calc(100vh-350px)] min-h-[calc(100vh-280px)]">
+        <div className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
           <div className="card-body">
             {messages.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-              <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-neutral' : 'bg-base-200 text-base-content'}`}>
+              <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
                 <ReactMarkdown
                   children={message.content.trim()}
                   remarkPlugins={[remarkGfm]}
@@ -143,6 +143,7 @@ export default function Home() {
               }
 
               setMessages(msgs)
+              ;(e.target as HTMLFormElement).reset()
               const json = await resp.json()
               fetch('https://tanyacapres.vercel.app/api/stream', {
                 method: 'POST',
