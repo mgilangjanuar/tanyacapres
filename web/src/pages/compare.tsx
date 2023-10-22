@@ -12,117 +12,119 @@ export default function Compare() {
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
 
   return <div className="container mx-auto py-2">
-    <div className="grid grid-cols-12 gap-8">
-      <div className="col-span-12 md:col-span-6">
-        <div>
-          <div className="hidden">
-            <div className="chat chat-start">
-              <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
+    <div className="overflow-x-auto">
+      <div className="grid grid-cols-12 gap-8 min-w-[700px]">
+        <div className="col-span-6">
+          <div>
+            <div className="hidden">
+              <div className="chat chat-start">
+                <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
+              </div>
+              <div className="chat chat-end">
+                <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
+              </div>
             </div>
-            <div className="chat chat-end">
-              <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
-            </div>
-          </div>
-          <div className="card shadow-md lg:card-normal card-compact">
-            <div className="card-body">
-              <div className="flex gap-4 items-center">
-                <div>
-                  <img src="/amin.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
-                </div>
-                <div className="flex flex-col grow">
-                  <h3 className="text-xl font-bold">AMIN</h3>
-                  <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
+            <div className="card shadow-md lg:card-normal card-compact">
+              <div className="card-body">
+                <div className="flex gap-4 items-center">
+                  <div>
+                    <img src="/amin.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
+                  </div>
+                  <div className="flex flex-col grow">
+                    <h3 className="text-xl font-bold">AMIN</h3>
+                    <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
-            <div className="card-body">
-              {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-                <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
-                  <ReactMarkdown
-                    children={message.content.trim()}
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      code({ inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || '')
-                        return !inline ? (
-                          <SyntaxHighlighter
-                            children={String(children).replace(/\n$/, '')}
-                            style={dracula as any}
-                            language={match?.[1]}
-                            PreTag="div"
-                            {...props}
-                          />
-                        ) : (
-                          <code className={className} {...props}>
-                            {children}
-                          </code>
-                        )
-                      }
-                    }} />
-                </div>
-              </div>)}
+            <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
+              <div className="card-body">
+                {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
+                  <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
+                    <ReactMarkdown
+                      children={message.content.trim()}
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({ inline, className, children, ...props }) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          return !inline ? (
+                            <SyntaxHighlighter
+                              children={String(children).replace(/\n$/, '')}
+                              style={dracula as any}
+                              language={match?.[1]}
+                              PreTag="div"
+                              {...props}
+                            />
+                          ) : (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          )
+                        }
+                      }} />
+                  </div>
+                </div>)}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="col-span-12 md:col-span-6">
-        <div>
-          <div className="hidden">
-            <div className="chat chat-start">
-              <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
+        <div className="col-span-6">
+          <div>
+            <div className="hidden">
+              <div className="chat chat-start">
+                <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
+              </div>
+              <div className="chat chat-end">
+                <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
+              </div>
             </div>
-            <div className="chat chat-end">
-              <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
-            </div>
-          </div>
-          <div className="card shadow-md lg:card-normal card-compact">
-            <div className="card-body">
-              <div className="flex gap-4 items-center">
-                <div>
-                  <img src="/gama.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
-                </div>
-                <div className="flex flex-col grow">
-                  <h3 className="text-xl font-bold">GAMA</h3>
-                  <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
+            <div className="card shadow-md lg:card-normal card-compact">
+              <div className="card-body">
+                <div className="flex gap-4 items-center">
+                  <div>
+                    <img src="/gama.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
+                  </div>
+                  <div className="flex flex-col grow">
+                    <h3 className="text-xl font-bold">GAMA</h3>
+                    <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
-            <div className="card-body">
-              {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-                <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
-                  <ReactMarkdown
-                    children={message.content.trim()}
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      code({ inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || '')
-                        return !inline ? (
-                          <SyntaxHighlighter
-                            children={String(children).replace(/\n$/, '')}
-                            style={dracula as any}
-                            language={match?.[1]}
-                            PreTag="div"
-                            {...props}
-                          />
-                        ) : (
-                          <code className={className} {...props}>
-                            {children}
-                          </code>
-                        )
-                      }
-                    }} />
-                </div>
-              </div>)}
+            <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100vh-330px)] h-[calc(100vh-260px)] my-2">
+              <div className="card-body">
+                {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
+                  <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
+                    <ReactMarkdown
+                      children={message.content.trim()}
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({ inline, className, children, ...props }) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          return !inline ? (
+                            <SyntaxHighlighter
+                              children={String(children).replace(/\n$/, '')}
+                              style={dracula as any}
+                              language={match?.[1]}
+                              PreTag="div"
+                              {...props}
+                            />
+                          ) : (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          )
+                        }
+                      }} />
+                  </div>
+                </div>)}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div className="mx-auto pb-4 pt-8">
+    <div className="mx-auto pb-4 pt-8 max-w-7xl">
       <div>
         <form onSubmit={async e => {
           e.preventDefault()

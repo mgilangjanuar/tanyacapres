@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import { Link } from 'react-router-dom'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import remarkGfm from 'remark-gfm'
@@ -54,9 +55,16 @@ export default function Home() {
               </select>
             </div>
             <div>
-              <button className="btn btn-primary btn-neutral" onClick={() => setShowChat(true)}>
+              <button className="btn btn-ghost btn-outline" onClick={() => setShowChat(true)}>
                 Mulai Tanyakan!
               </button>
+            </div>
+          </div>
+          <div className="mt-4 text-center flex gap-4 justify-center">
+            <div>
+              <Link className="btn btn-primary btn-neutral" to="/compare">
+                Bandingkan Jawaban
+              </Link>
             </div>
           </div>
         </div>

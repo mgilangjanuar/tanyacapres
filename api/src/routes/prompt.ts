@@ -39,7 +39,7 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
 
 ${top3.map((record, i) => `---
 ${i + 1}. Page ${record.page}
@@ -87,7 +87,7 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
+      content: crypt.encrypt(`You are a helpful assistant that helps people find information from the parsed PDFs using Bahasa Indonesia. You need to answer as it is from the candidate's perspective. You are only can answer the question based on the documents and you can ignore the question if there is no information from the PDFs. Here are the top 3 results:
 
 ${top3.map((record, i) => `---
 ${i + 1}. Page ${record.page}
