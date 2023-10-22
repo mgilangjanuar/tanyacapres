@@ -37,8 +37,8 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refAmin} className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
-              <div className="card-body">
+            <div ref={refAmin} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-250px)] my-2">
+              <div className="lg:card-body">
                 {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
                     <ReactMarkdown
@@ -91,8 +91,8 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refGama} className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
-              <div className="card-body">
+            <div ref={refGama} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-250px)] my-2">
+              <div className="lg:card-body">
                 {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
                     <ReactMarkdown
@@ -124,7 +124,7 @@ export default function Compare() {
         </div>
       </div>
     </div>
-    <div className="mx-auto py-4 max-w-7xl">
+    <div className="mx-auto py-2 max-w-7xl">
       <div>
         <form onSubmit={async e => {
           e.preventDefault()
@@ -298,6 +298,9 @@ export default function Compare() {
                     }
 
                     if (c.choices[0].finish_reason === 'stop') {
+                      if (messagesAmin?.length > 1 && !localStorage.getItem('isDonated')) {
+                        (window as any).gotopricing.showModal()
+                      }
                       setLoading(false)
                     }
                   }
@@ -359,5 +362,31 @@ export default function Compare() {
         </form>
       </div>
     </div>
+    <dialog id="gotopricing" className="modal modal-bottom sm:modal-middle">
+      <form method="dialog" className="modal-box">
+        <h3 className="font-bold text-lg">
+          Suka dengan aplikasi ini?
+        </h3>
+        <p className="py-4">
+          Bantu kami untuk terus mengembangkan aplikasi ini dengan berdonasi 🎁 🥳
+        </p>
+        <div className="modal-action">
+          <a href="https://www.nihbuatjajan.com/mgilangjanuar" target="_blank" className="btn btn-neutral" onClick={() => localStorage.setItem('isDonated', 'true')}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
+              <path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+              <path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+              <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
+              <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
+            </svg>
+            Donate
+          </a>
+        </div>
+      </form>
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   </div>
 }
