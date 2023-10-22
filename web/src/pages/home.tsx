@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Link } from 'react-router-dom'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -9,6 +9,7 @@ export default function Home() {
   const [showChat, setShowChat] = useState<boolean>(false)
   const [candidate, setCandidate] = useState<string>()
   const [loading, setLoading] = useState<boolean>(false)
+  const ref = useRef<any>()
   const [messages, setMessages] = useState<{ role: string, content: string }[]>([])
 
   return <div className="container mx-auto py-2">
@@ -100,7 +101,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
+        <div ref={ref} className="card overflow-y-auto lg:h-[calc(100svh-300px)] h-[calc(100svh-260px)] my-2">
           <div className="card-body">
             {messages.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
               <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -198,6 +199,10 @@ export default function Home() {
 
                       message.role = c.choices[0].delta.role ?? message.role
                       message.content += c.choices[0].delta.content || ''
+
+                      if (ref.current) {
+                        ref.current.scrollTop = ref.current?.scrollHeight
+                      }
 
                       if (c.choices[0].finish_reason === 'stop') {
                         setLoading(false)
