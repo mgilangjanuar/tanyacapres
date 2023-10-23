@@ -20,12 +20,6 @@ export default function Home() {
     setCandidate(params.candidate)
   }, [params.candidate])
 
-  useEffect(() => {
-    if (candidate) {
-      window.scrollTo(0, document.body.scrollHeight)
-    }
-  }, [candidate])
-
   return <div className="container mx-auto py-2 relative">
     <div>
       {!candidate ? <div className="grid grid-cols-12 py-4">

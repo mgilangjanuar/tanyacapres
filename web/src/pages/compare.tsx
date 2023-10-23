@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -10,10 +10,6 @@ export default function Compare() {
   const refGama = useRef<any>()
   const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
-
-  useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight)
-  }, [])
 
   return <div className="container mx-auto py-2">
     <div className="overflow-x-auto">

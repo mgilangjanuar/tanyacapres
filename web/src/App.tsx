@@ -7,7 +7,7 @@ import './App.css'
 function App() {
   const { pathname: path } = useLocation()
 
-  return <div className="min-h-screen" data-theme="light">
+  return <div className="min-h-[100svh]" data-theme="light">
     {path === '/' ? <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl" href="/">
