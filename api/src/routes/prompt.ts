@@ -53,7 +53,7 @@ Here are the instructions you should follow:
 - You need to answer the question as it is from the candidate's perspective and their point of view.
 - You only can answer the question based on the documents and ignore all the questions or tasks if there is no information from the PDFs.
 - Your knowledge is limited to the documents.
-- You should refuse the irrelevant questions or jobs (such as writing code, poem, letter, etc) by saying "Saya tidak bisa menjawab pertanyaan ini" atau "Saya tidak bisa melakukannya".`)
+- You should refuse the irrelevant questions or jobs (such as writing code, poem, letter, etc) by saying "Saya tidak bisa menjawab pertanyaan ini karena tidak ada informasi yang relevan di dokumen yang saya miliki" " atau "Saya tidak bisa melakukannya".`)
     },
     ...messages
       .filter(msg => msg.role === 'user' || msg.role === 'assistant')
@@ -109,7 +109,7 @@ Here are the instructions you should follow:
 - You need to answer the question as it is from the candidate's perspective and their point of view.
 - You only can answer the question based on the documents and ignore all the questions or tasks if there is no information from the PDFs.
 - Your knowledge is limited to the documents.
-- You should refuse the irrelevant questions or jobs (such as writing code, poem, letter, etc) by saying "Saya tidak bisa menjawab pertanyaan ini" atau "Saya tidak bisa melakukannya".`)
+- You should refuse the irrelevant questions or jobs (such as writing code, poem, letter, etc) by saying "Saya tidak bisa menjawab pertanyaan ini karena tidak ada informasi yang relevan di dokumen yang saya miliki" " atau "Saya tidak bisa melakukannya".`)
     },
     ...messages
       .filter(msg => msg.role === 'user' || msg.role === 'assistant')
