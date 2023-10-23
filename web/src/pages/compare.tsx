@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -10,6 +10,10 @@ export default function Compare() {
   const refGama = useRef<any>()
   const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight)
+  }, [])
 
   return <div className="container mx-auto py-2">
     <div className="overflow-x-auto">
@@ -37,8 +41,24 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refAmin} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-250px)] my-2">
+            <div ref={refAmin} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-180px)] my-2">
               <div className="lg:card-body">
+                {!messagesAmin?.length ? <div className="prose pt-[25svh] sm:hidden block">
+                  <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-500" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />
+                      <path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5" />
+                      <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" />
+                      <path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" />
+                      <path d="M2.541 5.594a13.487 13.487 0 0 1 2.46 -1.427" />
+                      <path d="M14 3.458c1.32 .354 2.558 .902 3.685 1.612" />
+                    </svg>
+                  </p>
+                  <p className="text-gray-500">
+                    Geser ke kanan atau kiri untuk melihat jawaban dari capres lain.
+                  </p>
+                </div> : <></>}
                 {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
                     <ReactMarkdown
@@ -91,7 +111,7 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refGama} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-250px)] my-2">
+            <div ref={refGama} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-180px)] my-2">
               <div className="lg:card-body">
                 {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
