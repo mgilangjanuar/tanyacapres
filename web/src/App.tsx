@@ -1,12 +1,14 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Compare from './pages/compare'
 import Home from './pages/home'
 
 import './App.css'
 
 function App() {
+  const { pathname: path } = useLocation()
+
   return <div className="min-h-screen" data-theme="light">
-    <div className="navbar bg-base-100 shadow-sm">
+    {path === '/' ? <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl" href="/">
           <img src="/icon.png" className="w-full max-w-[28px]" alt="" />
@@ -39,9 +41,10 @@ function App() {
           </li>
         </ul>
       </div>
-    </div>
+    </div> : <></>}
     <Routes>
       <Route index element={<Home />} />
+      <Route path="/ask/:candidate" element={<Home />} />
       <Route path="/compare" element={<Compare />} />
     </Routes>
   </div>

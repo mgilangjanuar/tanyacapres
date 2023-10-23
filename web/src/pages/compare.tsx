@@ -41,7 +41,7 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refAmin} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-180px)] my-2">
+            <div ref={refAmin} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
               <div className="lg:card-body">
                 {!messagesAmin?.length ? <div className="prose pt-[25svh] sm:hidden block">
                   <p>
@@ -111,7 +111,7 @@ export default function Compare() {
                 </div>
               </div>
             </div>
-            <div ref={refGama} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-180px)] my-2">
+            <div ref={refGama} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
               <div className="lg:card-body">
                 {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -144,7 +144,7 @@ export default function Compare() {
         </div>
       </div>
     </div>
-    <div className="mx-auto py-2 max-w-7xl">
+    <div className="mx-auto py-1 max-w-7xl">
       <div>
         <form onSubmit={async e => {
           e.preventDefault()

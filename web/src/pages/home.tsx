@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useEffect, useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import remarkGfm from 'remark-gfm'
@@ -10,10 +10,15 @@ import remarkGfm from 'remark-gfm'
 dayjs.extend(relativeTime)
 
 export default function Home() {
+  const params = useParams()
   const [candidate, setCandidate] = useState<string>()
   const [loading, setLoading] = useState<boolean>(false)
   const ref = useRef<any>()
   const [messages, setMessages] = useState<{ role: string, content: string }[]>([])
+
+  useEffect(() => {
+    setCandidate(params.candidate)
+  }, [params.candidate])
 
   useEffect(() => {
     if (candidate) {
@@ -22,14 +27,14 @@ export default function Home() {
   }, [candidate])
 
   return <div className="container mx-auto py-2 relative">
-    <div className="fixed bottom-0 right-0 z-50 py-1 px-2 bg-neutral text-neutral-content rounded-tl-lg">
-      <p className="text-xs">
-        by <a href="https://x.com/mgilangjanuar" target="_blank" rel="noopener noreferrer" className="link-hover">@mgilangjanuar</a>
-      </p>
-    </div>
     <div>
       {!candidate ? <div className="grid grid-cols-12 py-4">
         <div className="col-span-12 lg:col-span-8 lg:pr-6">
+          <div className="fixed bottom-0 right-0 z-50 py-1 px-2 bg-neutral text-neutral-content rounded-tl-lg">
+            <p className="text-xs">
+              by <a href="https://x.com/mgilangjanuar" target="_blank" rel="noopener noreferrer" className="link-hover">@mgilangjanuar</a>
+            </p>
+          </div>
           <div className="hidden lg:block">
             <img src="/logo.png" className="w-full max-w-[236px] mx-auto" alt="" />
           </div>
@@ -45,31 +50,31 @@ export default function Home() {
                 Perhatian!
               </h2>
               <p className="mb-0">
-                Aplikasi ini menggunakan AI yang dibuat untuk membantu masyarakat dalam mengetahui visi dan misi dari para calon presiden dan wakil presiden Indonesia tahun 2024. Selalu lakukan pengecekan ulang terhadap informasi yang diberikan oleh aplikasi ini pada rujukan utamanya.
+                Aplikasi ini menggunakan AI yang dibuat untuk membantu masyarakat dalam mengetahui visi dan misi dari para calon presiden dan wakil presiden Indonesia tahun 2024. Selalu lakukan pengecekan ulang terhadap informasi yang diberikan pada rujukan utamanya.
               </p>
-              <ul className="mt-0">
+              <ul className="md:mt-0">
                 <li>
-                  <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover">
+                  <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
                     mmc.tirto.id/.../1241-amin-visi-misi-program.pdf
                   </a>
                 </li>
                 <li>
-                  <a href="https://visimisiganjarmahfud.id/assets/docs/Visi-Misi-Ganjar-Pranowo-Mahfud-MD-v2.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover">
+                  <a href="https://visimisiganjarmahfud.id/assets/docs/Visi-Misi-Ganjar-Pranowo-Mahfud-MD-v2.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
                     visimisiganjarmahfud.id/.../Visi-Misi-Ganjar-Pranowo-Mahfud-MD-v2.pdf
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="card bg-base-100 shadow-md mt-12 lg:mt-0">
+          <div className="card bg-base-100 shadow-md mt-8 lg:mt-0">
             <div className="card-body">
               <div className="text-center flex gap-4 justify-center mb-4">
-                <div className="hover:cursor-pointer tooltip" data-tip="Tanya AMIN" onClick={() => setCandidate('amin')}>
+                <Link className="hover:cursor-pointer tooltip tooltip-open" data-tip="Tanya AMIN" to={`/ask/amin`}>
                   <img src="/amin.png" alt="" className="w-full max-w-[128px] mask mask-circle" />
-                </div>
-                <div className="hover:cursor-pointer tooltip" data-tip="Tanya GAMA" onClick={() => setCandidate('gama')}>
+                </Link>
+                <Link className="hover:cursor-pointer tooltip tooltip-open" data-tip="Tanya GAMA" to={`/ask/gama`}>
                   <img src="/gama.png" alt="" className="w-full max-w-[128px] mask mask-circle" />
-                </div>
+                </Link>
               </div>
               <div className="flex flex-row gap-6">
                 <div className="divider grow mt-1.5"></div>
@@ -95,7 +100,7 @@ export default function Home() {
             <p className="my-5 prose">
               Terima kasih untuk para donatur yang telah membantu kami dalam mengembangkan aplikasi ini.
             </p>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
               <div className="card card-compact shadow-md">
                 <div className="card-body">
                   <div className="flex gap-4 items-center">
@@ -223,7 +228,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div ref={ref} className="lg:card overflow-y-auto lg:h-[calc(100svh-280px)] h-[calc(100svh-180px)] my-2">
+        <div ref={ref} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
           <div className="lg:card-body">
             {messages.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
               <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
@@ -252,7 +257,7 @@ export default function Home() {
             </div>)}
           </div>
         </div>
-        <div className="mx-auto py-2 max-w-7xl">
+        <div className="mx-auto py-1 max-w-7xl">
           <div>
             <form onSubmit={async e => {
               e.preventDefault()
