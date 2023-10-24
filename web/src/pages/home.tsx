@@ -100,7 +100,7 @@ export default function Home() {
             <img src="/logo.png" className="w-full max-w-[236px] mx-auto" alt="" />
           </div>
           <div className="lg:card bg-base-100 lg:shadow-inner lg:mt-10">
-            <div className="lg:card-body prose max-w-full text-gray-500">
+            <div className="lg:card-body prose max-w-full">
               <h2 className="card-title text-warning">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-2" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -115,12 +115,12 @@ export default function Home() {
               </p>
               <ul className="md:mt-0 italic">
                 <li>
-                  <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
+                  <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="link-hover font-normal">
                     mmc.tirto.id/.../1241-amin-visi-misi-program.pdf
                   </a>
                 </li>
                 <li>
-                  <a href="https://drive.google.com/file/d/1-olOvmrwXLJjjlE9B_oTnCMMRVQYSuse/view" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
+                  <a href="https://drive.google.com/file/d/1-olOvmrwXLJjjlE9B_oTnCMMRVQYSuse/view" target="_blank" rel="noopener noreferrer" className="link-hover font-normal">
                     visimisiganjarmahfud.id/.../Visi-Misi-Ganjar-Pranowo-Mahfud-MD.pdf
                   </a>
                 </li>
@@ -140,7 +140,7 @@ export default function Home() {
               <div className="flex flex-row gap-4">
                 <div className="divider grow mt-1.5"></div>
                 <div>
-                  <p className="text-gray-300">atau</p>
+                  <p className="text-gray-400">atau</p>
                 </div>
                 <div className="divider grow mt-1.5"></div>
               </div>

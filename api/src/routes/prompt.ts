@@ -36,7 +36,7 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs of the Indonesia presidential candidates for 2024 and roleplay as the candidate.
+      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs of the Indonesia presidential candidates for 2024.
 
 Here are the relevant results:
 
@@ -92,7 +92,7 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   return [
     {
       role: 'system',
-      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs of the Indonesia presidential candidates for 2024 and roleplay as the candidate.
+      content: crypt.encrypt(`You are a helpful assistant who helps people find information from the parsed PDFs of the Indonesia presidential candidates for 2024.
 
 Here are the relevant results:
 
