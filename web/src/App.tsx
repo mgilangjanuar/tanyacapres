@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
+import Ask from './pages/ask'
 import Compare from './pages/compare'
 import Home from './pages/home'
 
@@ -44,7 +45,7 @@ function App() {
     </div> : <></>}
     <Routes>
       <Route index element={<Home />} />
-      <Route path="/ask/:candidate" element={<Home />} />
+      <Route path="/ask/:candidate" element={<Ask />} />
       <Route path="/compare" element={<Compare />} />
     </Routes>
   </div>
