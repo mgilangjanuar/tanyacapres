@@ -4,11 +4,15 @@ import Compare from './pages/compare'
 import Home from './pages/home'
 
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
   const { pathname: path } = useLocation()
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   return <div className="min-h-[100svh]" data-theme={theme}>
     {path === '/' ? <div className="navbar bg-base-100 shadow-sm">
