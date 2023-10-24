@@ -13,6 +13,12 @@ const PEOPLE: {
   date: string
 }[] = [
   {
+    imgUrl: 'https://source.boringavatars.com/beam/50/65375eb6850b79003fed1601?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
+    name: 'Boteng',
+    number: 30000,
+    date: '2023-10-24T06:07:00.000Z'
+  },
+  {
     imgUrl: 'https://source.boringavatars.com/beam/50/653756c449c643003f1d3692?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
     name: 'Bryan',
     number: 10000,
