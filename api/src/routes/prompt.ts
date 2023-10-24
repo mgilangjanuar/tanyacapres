@@ -32,7 +32,7 @@ const aniesPrompt = async (messages: { role: string, content: string }[]) => {
   }))
   records.sort((a, b) => (b as any & { similarity: number }).similarity - (a as any & { similarity: number }).similarity)
 
-  const topResults = records.slice(0, 7)
+  const topResults = records.slice(0, 4)
   return [
     {
       role: 'system',
@@ -88,7 +88,7 @@ const ganjarPrompt = async (messages: { role: string, content: string }[]) => {
   }))
   records.sort((a, b) => (b as any & { similarity: number }).similarity - (a as any & { similarity: number }).similarity)
 
-  const topResults = records.slice(0, 7)
+  const topResults = records.slice(0, 4)
   return [
     {
       role: 'system',
@@ -124,7 +124,7 @@ export default async function handler(req: Request, res: Response) {
   if (candidate === 'amin') {
     return res.json({
       messages: await aniesPrompt(conv),
-      model: 'gpt-3.5-turbo-16k',
+      model: 'gpt-3.5-turbo',
       temperature: 0.05
     })
   }
@@ -132,7 +132,7 @@ export default async function handler(req: Request, res: Response) {
   if (candidate === 'gama') {
     return res.json({
       messages: await ganjarPrompt(conv),
-      model: 'gpt-3.5-turbo-16k',
+      model: 'gpt-3.5-turbo',
       temperature: 0.05
     })
   }
