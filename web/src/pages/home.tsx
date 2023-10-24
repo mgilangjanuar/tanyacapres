@@ -13,6 +13,13 @@ const PEOPLE: {
   date: string
 }[] = [
   {
+    imgUrl: 'https://source.boringavatars.com/beam/50/653756c449c643003f1d3692?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
+    name: 'Bryan',
+    number: 10000,
+    message: 'Gas',
+    date: '2023-10-24T05:32:00.000Z'
+  },
+  {
     imgUrl: 'https://source.boringavatars.com/beam/50/65373a4749c643003f1ce947?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
     name: 'Firdaus',
     number: 10000,
@@ -60,7 +67,6 @@ export default function Home() {
           }
         })
         if (!resp.ok) {
-          alert('Terjadi kesalahan, coba lagi nanti.')
           return
         }
         const json = await resp.json()
@@ -74,7 +80,6 @@ export default function Home() {
           }
         })
         if (!resp.ok) {
-          alert('Terjadi kesalahan, coba lagi nanti.')
           return
         }
         const json = await resp.json()
@@ -88,14 +93,14 @@ export default function Home() {
   }, [])
 
   return <div className="container mx-auto py-2 relative">
+    <div className="fixed bottom-0 right-0 z-50 py-1 px-2 bg-neutral text-neutral-content rounded-tl-lg">
+      <p className="text-xs">
+        <a href="https://x.com/mgilangjanuar" target="_blank" rel="noopener noreferrer" className="link-hover">@mgilangjanuar</a>
+      </p>
+    </div>
     <div>
       <div className="grid grid-cols-12 py-4">
         <div className="col-span-12 lg:col-span-8 lg:pr-6">
-          <div className="fixed bottom-0 right-0 z-50 py-1 px-2 bg-neutral text-neutral-content rounded-tl-lg">
-            <p className="text-xs">
-              by <a href="https://x.com/mgilangjanuar" target="_blank" rel="noopener noreferrer" className="link-hover">@mgilangjanuar</a>
-            </p>
-          </div>
           <div className="hidden lg:block">
             <img src="/logo.png" className="w-full max-w-[236px] mx-auto" alt="" />
           </div>
