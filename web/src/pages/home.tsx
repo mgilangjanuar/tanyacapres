@@ -106,15 +106,15 @@ export default function Home() {
               <p className="mb-0">
                 Aplikasi ini menggunakan AI yang dibuat untuk membantu masyarakat dalam mengetahui visi dan misi dari para calon presiden dan wakil presiden Indonesia tahun 2024. Selalu lakukan pengecekan ulang terhadap informasi yang diberikan pada rujukan utamanya.
               </p>
-              <ul className="md:mt-0">
+              <ul className="md:mt-0 italic">
                 <li>
                   <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
                     mmc.tirto.id/.../1241-amin-visi-misi-program.pdf
                   </a>
                 </li>
                 <li>
-                  <a href="https://visimisiganjarmahfud.id/assets/docs/Visi-Misi-Ganjar-Pranowo-Mahfud-MD-v2.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
-                    visimisiganjarmahfud.id/.../Visi-Misi-Ganjar-Pranowo-Mahfud-MD-v2.pdf
+                  <a href="https://drive.google.com/file/d/1-olOvmrwXLJjjlE9B_oTnCMMRVQYSuse/view" target="_blank" rel="noopener noreferrer" className="text-gray-500 link-hover font-normal">
+                    visimisiganjarmahfud.id/.../Visi-Misi-Ganjar-Pranowo-Mahfud-MD.pdf
                   </a>
                 </li>
               </ul>
@@ -130,7 +130,7 @@ export default function Home() {
                   <img src="/gama.png" alt="" className="w-full max-w-[128px] mask mask-circle" />
                 </Link>
               </div>
-              <div className="flex flex-row gap-6">
+              <div className="flex flex-row gap-4">
                 <div className="divider grow mt-1.5"></div>
                 <div>
                   <p className="text-gray-300">atau</p>

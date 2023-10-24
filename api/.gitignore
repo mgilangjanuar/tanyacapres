@@ -8,3 +8,5 @@ docs/vectors/**/*
 !docs/*.pdf
 
 usages/**/*
+
+questions.txt

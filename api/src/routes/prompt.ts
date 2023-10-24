@@ -1,7 +1,7 @@
 import { cosineSimilarity } from 'cosine-similarity-threshold'
 import Cryptr from 'cryptr'
 import { Request, Response } from 'express'
-import { readFileSync } from 'fs'
+import { appendFileSync, readFileSync } from 'fs'
 
 const crypt = new Cryptr(process.env.SECRET || '')
 
@@ -120,6 +120,8 @@ Here are the instructions you should follow:
 export default async function handler(req: Request, res: Response) {
   const { candidate } = req.params
   const { messages: conv } = req.body as { messages: { role: string, content: string }[] }
+
+  appendFileSync(`${__dirname}/../../questions.txt`, `${candidate};${conv.at(-1)?.content}\n`)
 
   if (candidate === 'amin') {
     return res.json({
