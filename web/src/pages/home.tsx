@@ -13,6 +13,13 @@ const PEOPLE: {
   date: string
 }[] = [
   {
+    imgUrl: 'https://source.boringavatars.com/beam/50/65373a4749c643003f1ce947?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
+    name: 'Firdaus',
+    number: 10000,
+    message: 'Tinggal satu paslon lagi nih 🥰',
+    date: '2023-10-24T03:31:00.000Z'
+  },
+  {
     imgUrl: 'https://source.boringavatars.com/beam/50/653636a6e52903003f57b74c?colors=ff813f,ffdd02,ffa779,ffe74f,e1e1e1',
     name: 'Seseorang',
     number: 1,
