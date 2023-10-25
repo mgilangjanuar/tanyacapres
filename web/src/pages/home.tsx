@@ -127,12 +127,17 @@ export default function Home() {
               <ul className="md:mt-0 italic">
                 <li>
                   <a href="https://mmc.tirto.id/documents/2023/10/20/1241-amin-visi-misi-program.pdf?x=2676" target="_blank" rel="noopener noreferrer" className="link-hover font-normal">
-                    mmc.tirto.id/.../1241-amin-visi-misi-program.pdf
+                    Visi Misi Anies - Muhaimin
                   </a>
                 </li>
                 <li>
                   <a href="https://drive.google.com/file/d/1-olOvmrwXLJjjlE9B_oTnCMMRVQYSuse/view" target="_blank" rel="noopener noreferrer" className="link-hover font-normal">
-                    visimisiganjarmahfud.id/.../Visi-Misi-Ganjar-Pranowo-Mahfud-MD.pdf
+                    Visi Misi Ganjar - Mahfud
+                  </a>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/file/d/1V7N74FEblhyJhTSi4f1YLhV_aeqZ2LFk/view" target="_blank" rel="noopener noreferrer" className="link-hover font-normal">
+                    Visi Misi Prabowo - Gibran
                   </a>
                 </li>
               </ul>
@@ -146,6 +151,9 @@ export default function Home() {
                 </Link>
                 <Link className="hover:cursor-pointer tooltip tooltip-open" data-tip="Tanya GAMA" to={`/ask/gama`}>
                   <img src="/gama.png" alt="" className="w-full max-w-[128px] mask mask-circle" />
+                </Link>
+                <Link className="hover:cursor-pointer tooltip tooltip-open" data-tip="Tanya PRABU" to={`/ask/prabu`}>
+                  <img src="/prabu.png" alt="" className="w-full max-w-[128px] mask mask-circle" />
                 </Link>
               </div>
               <div className="flex flex-row gap-4">

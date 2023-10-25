@@ -38,7 +38,7 @@ export default function Ask() {
                 <img src={`/${candidate}.png`} className="mask mask-circle w-full max-w-[52px]" alt="" />
               </div>
               <div className="flex flex-col grow">
-                <h3 className="text-xl font-bold">{candidate === 'amin' ? 'AMIN' : candidate === 'gama' ? 'GAMA' : ''}</h3>
+                <h3 className="text-xl font-bold">{candidate === 'amin' ? 'AMIN' : candidate === 'gama' ? 'GAMA' : 'PRABU'}</h3>
                 <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
               </div>
               <div>
