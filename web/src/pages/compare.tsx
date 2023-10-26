@@ -1,13 +1,11 @@
 import { useRef, useState } from 'react'
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import remarkGfm from 'remark-gfm'
+import ChatBox from '../components/chatbox'
 
 export default function Compare() {
   const [loading, setLoading] = useState<boolean>(false)
   const refAmin = useRef<any>()
   const refGama = useRef<any>()
+  const refPrabu = useRef<any>()
   const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
   const [messagesPrabu, setMessagesPrabu] = useState<{ role: string, content: string }[]>([])
@@ -16,182 +14,13 @@ export default function Compare() {
     <div className="overflow-x-auto">
       <div className="grid grid-cols-12 gap-6 min-w-[1050px]">
         <div className="col-span-4">
-          <div>
-            <div className="hidden">
-              <div className="chat chat-start">
-                <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
-              </div>
-            </div>
-            <div className="card shadow-md lg:card-normal card-compact">
-              <div className="card-body">
-                <div className="flex gap-4 items-center">
-                  <div>
-                    <img src="/amin.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
-                  </div>
-                  <div className="flex flex-col grow">
-                    <h3 className="text-xl font-bold">AMIN</h3>
-                    <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div ref={refAmin} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
-              <div className="lg:card-body">
-                {!messagesAmin?.length ? <div className="prose pt-[25svh] sm:hidden block">
-                  <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-500" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5" />
-                      <path d="M11 11.5v-2a1.5 1.5 0 0 1 3 0v2.5" />
-                      <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5" />
-                      <path d="M17 11.5a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7l-.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47" />
-                      <path d="M2.541 5.594a13.487 13.487 0 0 1 2.46 -1.427" />
-                      <path d="M14 3.458c1.32 .354 2.558 .902 3.685 1.612" />
-                    </svg>
-                  </p>
-                  <p className="text-gray-500">
-                    Geser ke kanan atau kiri untuk melihat jawaban dari capres lain.
-                  </p>
-                </div> : <></>}
-                {messagesAmin.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-                  <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
-                    <ReactMarkdown
-                      children={message.content.trim()}
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        code({ inline, className, children, ...props }) {
-                          const match = /language-(\w+)/.exec(className || '')
-                          return !inline ? (
-                            <SyntaxHighlighter
-                              children={String(children).replace(/\n$/, '')}
-                              style={dracula as any}
-                              language={match?.[1]}
-                              PreTag="div"
-                              {...props}
-                            />
-                          ) : (
-                            <code className={className} {...props}>
-                              {children}
-                            </code>
-                          )
-                        }
-                      }} />
-                  </div>
-                </div>)}
-              </div>
-            </div>
-          </div>
+          <ChatBox refBox={refAmin} messages={messagesAmin} candidate="amin" />
         </div>
         <div className="col-span-4">
-          <div>
-            <div className="hidden">
-              <div className="chat chat-start">
-                <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
-              </div>
-            </div>
-            <div className="card shadow-md lg:card-normal card-compact">
-              <div className="card-body">
-                <div className="flex gap-4 items-center">
-                  <div>
-                    <img src="/gama.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
-                  </div>
-                  <div className="flex flex-col grow">
-                    <h3 className="text-xl font-bold">GAMA</h3>
-                    <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div ref={refGama} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
-              <div className="lg:card-body">
-                {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-                  <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
-                    <ReactMarkdown
-                      children={message.content.trim()}
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        code({ inline, className, children, ...props }) {
-                          const match = /language-(\w+)/.exec(className || '')
-                          return !inline ? (
-                            <SyntaxHighlighter
-                              children={String(children).replace(/\n$/, '')}
-                              style={dracula as any}
-                              language={match?.[1]}
-                              PreTag="div"
-                              {...props}
-                            />
-                          ) : (
-                            <code className={className} {...props}>
-                              {children}
-                            </code>
-                          )
-                        }
-                      }} />
-                  </div>
-                </div>)}
-              </div>
-            </div>
-          </div>
+          <ChatBox refBox={refGama} messages={messagesGama} candidate="gama" />
         </div>
         <div className="col-span-4">
-          <div>
-            <div className="hidden">
-              <div className="chat chat-start">
-                <div className="chat-bubble">It's over Anakin, <br/>I have the high ground.</div>
-              </div>
-              <div className="chat chat-end">
-                <div className="chat-bubble bg-base-200 text-base-content">You underestimate my power!</div>
-              </div>
-            </div>
-            <div className="card shadow-md lg:card-normal card-compact">
-              <div className="card-body">
-                <div className="flex gap-4 items-center">
-                  <div>
-                    <img src="/prabu.png" className="mask mask-circle w-full max-w-[52px]" alt="" />
-                  </div>
-                  <div className="flex flex-col grow">
-                    <h3 className="text-xl font-bold">PRABU</h3>
-                    <p className="text-sm text-gray-400">Tanyakan visi misinya.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div ref={refGama} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
-              <div className="lg:card-body">
-                {messagesPrabu.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
-                  <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
-                    <ReactMarkdown
-                      children={message.content.trim()}
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        code({ inline, className, children, ...props }) {
-                          const match = /language-(\w+)/.exec(className || '')
-                          return !inline ? (
-                            <SyntaxHighlighter
-                              children={String(children).replace(/\n$/, '')}
-                              style={dracula as any}
-                              language={match?.[1]}
-                              PreTag="div"
-                              {...props}
-                            />
-                          ) : (
-                            <code className={className} {...props}>
-                              {children}
-                            </code>
-                          )
-                        }
-                      }} />
-                  </div>
-                </div>)}
-              </div>
-            </div>
-          </div>
+          <ChatBox refBox={refPrabu} messages={messagesPrabu} candidate="prabu" />
         </div>
       </div>
     </div>
@@ -465,8 +294,8 @@ export default function Compare() {
                     message.role = c.choices[0].delta.role ?? message.role
                     message.content += c.choices[0].delta.content || ''
 
-                    if (refGama.current) {
-                      refGama.current.scrollTop = refGama.current?.scrollHeight
+                    if (refPrabu.current) {
+                      refPrabu.current.scrollTop = refPrabu.current?.scrollHeight
                     }
 
                     if (c.choices[0].finish_reason === 'stop') {
