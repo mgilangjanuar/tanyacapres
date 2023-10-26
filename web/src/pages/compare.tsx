@@ -10,10 +10,11 @@ export default function Compare() {
   const refGama = useRef<any>()
   const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
   const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
+  const [messagesPrabu, setMessagesPrabu] = useState<{ role: string, content: string }[]>([])
 
   return <div className="container mx-auto py-2">
     <div className="overflow-x-auto">
-      <div className="grid grid-cols-12 gap-8 min-w-[700px]">
+      <div className="grid grid-cols-12 gap-6 min-w-[1050px]">
         <div className="col-span-4">
           <div>
             <div className="hidden">
@@ -163,7 +164,7 @@ export default function Compare() {
             </div>
             <div ref={refGama} className="lg:card card-compact overflow-y-auto lg:h-[calc(100svh-196px)] h-[calc(100svh-164px)] my-2 mb-0">
               <div className="lg:card-body">
-                {messagesGama.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
+                {messagesPrabu.map((message, index) => <div key={index} className={`chat chat-${message.role !== 'user' ? 'start' : 'end'}`}>
                   <div className={`chat-bubble prose max-w-full ${message.role !== 'user' ? 'bg-base-200 text-base-content' : 'bg-neutral'}`}>
                     <ReactMarkdown
                       children={message.content.trim()}
@@ -399,7 +400,108 @@ export default function Compare() {
             })
           }
 
-          await Promise.allSettled([amin(), gama()])
+          const prabu = async () => {
+            const msgs: { role: string, content: string }[] = [...messagesGama, { role: 'user', content: data.content as string }]
+            const resp = await fetch('https://tanyacapres-api.appledore.dev/prompt/prabu', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                messages: msgs
+              })
+            })
+            if (!resp.ok) {
+              alert('Terjadi kesalahan, coba lagi nanti.')
+              setLoading(false)
+              return
+            }
+
+            setMessagesPrabu(msgs)
+            ;(e.target as HTMLFormElement).reset()
+            const json = await resp.json()
+            fetch('https://tanyacapres.vercel.app/api/stream', {
+              method: 'POST',
+              body: JSON.stringify(json),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }).then(async resp => {
+              const data = resp.body
+              if (!data) {
+                return
+              }
+              const reader = data.getReader()
+              const decoder = new TextDecoder()
+              let done = false
+
+              // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+              let responseText: string = ''
+              let responses: string[] = []
+
+              while (!done) {
+                const { value, done: doneReading } = await reader.read()
+                done = doneReading
+                const chunkValue = decoder.decode(value)
+                if (!chunkValue) break
+
+                responseText += chunkValue
+                responses = responseText.split('\n\n')
+                const message: { role: string, content: string } = { role: '', content: '' }
+
+                for (const res of responses) {
+                  const process = (append = '') => {
+                    const c = JSON.parse(`${res}${append}`)
+                    if (c.error) {
+                      if (c.error === 'Unauthorized') {
+                        (window as any).openLogin.showModal()
+                      } else {
+                        alert(c.error)
+                      }
+                      setLoading(false)
+                      return null
+                    }
+
+                    message.role = c.choices[0].delta.role ?? message.role
+                    message.content += c.choices[0].delta.content || ''
+
+                    if (refGama.current) {
+                      refGama.current.scrollTop = refGama.current?.scrollHeight
+                    }
+
+                    if (c.choices[0].finish_reason === 'stop') {
+                      if (messagesAmin?.length === 2 && !localStorage.getItem('isDonated')) {
+                        (window as any).gotopricing.showModal()
+                      }
+                      setLoading(false)
+                    }
+                  }
+                  try {
+                    const c = process()
+                    if (c === null) break
+                  } catch (err) {
+                    try {
+                      const c = process('"}}]}')
+                      if (c === null) break
+                    } catch (error) {
+                      try {
+                        const c = process('}}]')
+                        if (c === null) break
+                      } catch (error) {
+                        console.log(res)
+                      }
+                    }
+                  }
+                }
+
+                if (message.content.trim()) {
+                  setMessagesPrabu([...msgs, message])
+                }
+              }
+            })
+          }
+
+          await Promise.allSettled([amin(), gama(), prabu()])
         }}>
           <div className="flex gap-2">
             <div className="grow">
@@ -420,6 +522,7 @@ export default function Compare() {
               <button type="button" onClick={() => {
                 setMessagesAmin([])
                 setMessagesGama([])
+                setMessagesPrabu([])
               }} className="btn btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
