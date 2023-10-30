@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ChatBox from '../components/chatbox'
 
@@ -10,7 +10,13 @@ export default function Ask() {
   const params = useParams()
   const [loading, setLoading] = useState<boolean>(false)
   const ref = useRef<any>()
-  const [messages, setMessages] = useState<{ role: string, content: string }[]>([])
+  const [messages, setMessages] = useState<{ role: string, content: string }[]>(JSON.parse(localStorage.getItem(`ask:${params.candidate}`) || '[]'))
+
+  useEffect(() => {
+    if (messages) {
+      localStorage.setItem(`ask:${params.candidate}`, JSON.stringify(messages))
+    }
+  }, [messages, params.candidate])
 
   return <div className="container mx-auto py-2 relative">
     <div>

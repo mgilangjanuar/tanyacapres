@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ChatBox from '../components/chatbox'
 
 export default function Compare() {
@@ -6,9 +6,27 @@ export default function Compare() {
   const refAmin = useRef<any>()
   const refGama = useRef<any>()
   const refPrabu = useRef<any>()
-  const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>([])
-  const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>([])
-  const [messagesPrabu, setMessagesPrabu] = useState<{ role: string, content: string }[]>([])
+  const [messagesAmin, setMessagesAmin] = useState<{ role: string, content: string }[]>(JSON.parse(localStorage.getItem('compare:amin') || '[]'))
+  const [messagesGama, setMessagesGama] = useState<{ role: string, content: string }[]>(JSON.parse(localStorage.getItem('compare:gama') || '[]'))
+  const [messagesPrabu, setMessagesPrabu] = useState<{ role: string, content: string }[]>(JSON.parse(localStorage.getItem('compare:prabu') || '[]'))
+
+  useEffect(() => {
+    if (messagesAmin) {
+      localStorage.setItem('compare:amin', JSON.stringify(messagesAmin))
+    }
+  }, [messagesAmin])
+
+  useEffect(() => {
+    if (messagesGama) {
+      localStorage.setItem('compare:gama', JSON.stringify(messagesGama))
+    }
+  }, [messagesGama])
+
+  useEffect(() => {
+    if (messagesPrabu) {
+      localStorage.setItem('compare:prabu', JSON.stringify(messagesPrabu))
+    }
+  }, [messagesPrabu])
 
   return <div className="container mx-auto py-2">
     <div className="overflow-x-auto">
