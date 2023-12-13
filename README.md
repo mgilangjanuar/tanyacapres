@@ -1,3 +1,6 @@
+> [!WARNING]  
+> The project moved to: [github.com/mgilangjanuar/tanyacapres-2.0](https://github.com/mgilangjanuar/tanyacapres-2.0)
+
 # TanyaCapres
 
 This is a web-based application that can be used to chat with the PDF file of the presidential candidate. This application is built using ExpressJS, React, and TypeScript with OpenAI integration to generate embeddings and answer questions.
